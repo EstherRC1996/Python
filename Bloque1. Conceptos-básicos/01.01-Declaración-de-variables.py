@@ -46,3 +46,9 @@ print(type(('1', '2', '3')))
 print(type(["1", "2", "3"]))        
 print(type({"1", "2", "3"}))        
 print(type([1, 2, 3]))              
+
+
+
+# Una variable es un elemento de datos con nombre cuyo valor puede 
+# cambiar durante el curso de la ejecución del programa (es decir, es 
+# como una caja con un nombre, donde se guarda un valor).

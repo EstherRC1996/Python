@@ -49,3 +49,14 @@ print("Intento 3, correcto y es la forma preferida en Python")
 print(f"Variable A: {a}")
 print(f"Variable B: {b}")
 print("")
+
+
+
+# La asignacion simultanea permite asignar multiples valores en una 
+# sola linea de codigo.
+
+######################################################################
+
+# El temp es una variable temporal, utilizada para guardar datos de 
+# manera provisional durante el tiempo de la operación. Es muy util
+# para el interccambio de valores entre dos variables.
