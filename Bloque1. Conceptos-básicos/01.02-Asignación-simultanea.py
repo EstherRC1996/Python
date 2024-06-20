@@ -19,7 +19,7 @@ b = 10
 a = b
 b = a
 
-print("Intento 1, incorrecto.")
+print("Intento 1, incorrecto.")  #por sus diferentes valores
 print(f"Variable A: {a}")
 print(f"Variable B: {b}")
 print("")
@@ -29,7 +29,7 @@ print("")
 a = 5
 b = 10
 
-temp = a
+temp = a                    #temp= temporal
 a = b
 b = temp
 

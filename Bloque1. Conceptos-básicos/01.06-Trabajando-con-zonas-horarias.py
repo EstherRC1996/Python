@@ -30,3 +30,8 @@ print("Fecha Ushuaia:", datetime.now(
 print("Fecha Madrid:", datetime.now(pytz.timezone("Europe/Madrid")))
 print("Fecha Alaska:", datetime.now(pytz.timezone("US/Alaska")))
 print("Fecha UTC:", datetime.now(pytz.timezone("UTC")))
+
+
+
+    # pytz.timezone permite trabajar con zonas horarias, necesita una
+    # instalacion de pip con comando: pip install pytz

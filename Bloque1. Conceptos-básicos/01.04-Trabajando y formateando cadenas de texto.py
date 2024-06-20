@@ -19,15 +19,15 @@ print(f"Los 4 primeros caractéres empezando por derecha: {texto[-5]} \n")
 
 
 # Funciones que podemos utilizar con cadenas de texto
-print(f"Número de caractéres: {len(texto)}")
+print(f"Número de caractéres: {len(texto)}") #Cuenta el numero de caracteres en la cadena
 print(texto)
-print(texto.lower())
-print(texto.upper())
-print(texto.strip().capitalize())
-print(texto.title())
-print(texto.strip())
-print(texto.count("o"))
-print(f"Es un digito: {texto.isdigit()}")
+print(texto.lower())                        # Minuscula
+print(texto.upper())                        # Mayuscula
+print(texto.strip().capitalize())           # Elimina espacios en blanco y Primera letra en mayuscula
+print(texto.title())                        # Con espacios a los lados
+print(texto.strip())                        # Primera letra en mayuscula
+print(texto.count("o"))                     # Devuelve el numero de o en el texto
+print(f"Es un digito: {texto.isdigit()}")   # verifica si la cadena es un digito
 print(f"Es un digito: {"57".isdigit()} \n")
 
 
@@ -36,8 +36,13 @@ mensaje = "Mundo"
 
 print("Hola " + mensaje + " !!!")
 
-print("Hola {} !!!".format(mensaje))
+print("Hola {} !!!".format(mensaje))        # se utiliza para insertar el contenido de la variable
 print("Hola {s} !!!".format(s=mensaje))
+        
+        # {} en el print es un marcador, el {} es sustituido con el contenido de la
+        # variable mensaje, es decir, la que esta dentro del parentesis de .format()
+        # En el segundo caso el marcador incluye una s, la diferencia es que en el .fortmat(),
+        # dentro del parentesis hay que aclarar que s = mensaje.
 
 print(f"Hola {mensaje} !!!")
 
@@ -50,7 +55,12 @@ print("Resultado:", str(resultado))
 print("Resultado:", resultado)
 
 print("Resultado: {r}".format(r=resultado))
-print("Resultado: {r:1.2f}".format(r=resultado))
+print("Resultado: {r:1.2f}".format(r=resultado))  
 
 print(f"Resultado: {resultado}")
 print(f"Resultado: {resultado:1.2f}")
+
+# 1.2f especifica como debe formatearse
+# el 1 indica el ancho minimo de caracteres, para el valor formateado
+# el 2 indica que se deben mostrar dos digitos tras el punto decimal
+# la f especifica que debe formatearse como un número de punto flotante.
