@@ -21,8 +21,8 @@ conjunto = {"naranja", "limón", "pomelo", "líma", "mandarina"}
 
 lista[2] = "fresa"
 dicc[2] = "fresa"
-#tupla[2] = "fresa"
-#conjunto[2] = "fresa"
+#tupla[2] = "fresa"         No funciona
+#conjunto[2] = "fresa"      No funciona
 
 
 # Acceder a un elemento de la colección
@@ -31,7 +31,7 @@ dicc[2] = "fresa"
 print(lista[2])
 print(dicc[2])
 print(tupla[2])
-#print(conjunto[2])
+#print(conjunto[2])         No funciona
 
 
 # Añadir un elemento de la colección
@@ -39,7 +39,7 @@ print(tupla[2])
 
 lista.append("manzana")
 dicc[5] = "manzana"
-#tupla.append("manzana")
+#tupla.append("manzana")    No funciona
 conjunto.add("manzana")
 
 
@@ -48,7 +48,7 @@ conjunto.add("manzana")
 
 lista.remove("líma")
 dicc.pop(3)
-# tupla.remove("líma")
+# tupla.remove("líma")      No funciona
 conjunto.discard("líma")
 
 

@@ -1,5 +1,5 @@
 #####################################################################
-# Colecciones - DICCIONARIOS                                        #
+# Colecciones - DICCIONARIOS                                        
 #####################################################################
 
 # Declaración de variables
@@ -54,3 +54,9 @@ print(f"Contenido de vacio: {vacio}")
 # Eliminar todos los elementos del diccionario
 frutas.clear()
 print(f"Contenido de frutas: {frutas}")
+
+
+
+    # Son mutables, es decir, se pueden modificar.
+    # Tienen clave y valor, las claves de un dicionario deven de ser unicas
+    # Son utiles para representar datos estructurales y asociativos.

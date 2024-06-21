@@ -11,7 +11,7 @@
 ######################################################################
 
 
-# Declaración de variables
+# Declaración de variables (con =)
 numero = 10
 Numero = 20
 saludo = "Hola Mundo !!!"

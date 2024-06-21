@@ -1,19 +1,18 @@
 #####################################################################
-# Sentencias de Control - Try/Except/Else/Finally                   #
+# Sentencias de Control - Try/Except/Else/Finally                   
 #####################################################################
-#                                                                   #
-#   try     permite controlar las excepciones producidas en un      #
-#           bloque de código.                                       #
-#                                                                   #
-#   except  bloque de instrucciones que se ejecutan cuando se       #
-#           produce una excepción.                                  #
-#                                                                   #
-#   else    bloque de instrucciones que se ejecutan al finalizar    #
-#           el try si no se produce un excepción.                   #
-#                                                                   #
-#   finally bloque de instrucciones que se ejecutan siempre que     #
-#           finaliza el try, except o else.                         #
-#                                                                   #
+                                                                   
+#   try     permite controlar las excepciones producidas en un      
+#           bloque de código.                                       
+                                                                   
+#   except  bloque de instrucciones que se ejecutan cuando se       
+#           produce una excepción.                                  
+                                                                   
+#   else    bloque de instrucciones que se ejecutan al finalizar    
+#           el try si no se produce un excepción.                   
+                                                                   
+#   finally bloque de instrucciones que se ejecutan siempre que     
+#           finaliza el try, except o else.                                                                                            
 #####################################################################
 
 import sys
@@ -92,3 +91,8 @@ except Exception as err:
     print(f"Nivel 1: {err}")
 
 print("==============================================")
+
+
+# Hay multiples bloques except para manejar diferentes tipos de excepciones
+# Tener cuidado con el orden, ya que finally siempre independientemente
+# de si hay o no excepcion

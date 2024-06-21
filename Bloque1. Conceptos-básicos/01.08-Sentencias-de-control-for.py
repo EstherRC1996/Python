@@ -1,13 +1,13 @@
 #####################################################################
-# Sentencias de Control - For                                       #
+# Sentencias de Control - For                                       
 #####################################################################
-#                                                                   #
-#   Sintaxis: for [variable] in [variable colección]                #
-#             print([variable])                                     #
-#                                                                   #
-#             for [variable] in range([inicio], [fin], [intervalo]) #
-#             print([variable])                                     #
-#                                                                   #
+                                                                   
+#   Sintaxis: for [variable] in [variable colección]                
+#             print([variable])                                     
+                                                                   
+#             for [variable] in range([inicio], [fin], [intervalo]) 
+#             print([variable])                                     
+                                                                   
 #####################################################################
 
 
@@ -82,3 +82,13 @@ for numero in range(20, 4, -3):
     print(f"-> {numero}")
 
 print("===========================")
+
+
+
+
+    # resumen
+    # for: trabaja sobre la secuencia de listas, tuplas, cadenas, rango, ect
+    # range: genera una secuencia de números
+    # break:  sale del bucle
+    # continue: omite el resto del código en el bucle.
+    # else: se ejecuta cuando terminael bucle, sin haber usado breal

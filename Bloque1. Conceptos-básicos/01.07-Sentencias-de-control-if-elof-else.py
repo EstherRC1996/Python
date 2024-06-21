@@ -1,18 +1,17 @@
 #####################################################################
-# Sentencias de Control - If / Elif / Else                          #
+# Sentencias de Control - If / Elif / Else                          
 #####################################################################
-#                                                                   #
-#   Las sentencias de decisión determinar el flujo del programa     #
-#   tras evaluar una expresión de comparación.                      #
-#                                                                   #
-#                                                                   #
-#   Sintaxis:          Es igual: a == b                             #
-#                   No es igual: a != b                             #
-#                     Menor que: a <  b                             #
-#                 Menor o igual: a <= b                             #
-#                     Mayor que: a >  b                             #
-#                 Mayor o igual: a >= b                             #
-#                                                                   #
+                                                                   
+#   Las sentencias de decisión determinar el flujo del programa     
+#   tras evaluar una expresión de comparación.                      
+                                                                   
+#   Sintaxis:          Es igual: a == b                             
+#                   No es igual: a != b                             
+#                     Menor que: a <  b                             
+#                 Menor o igual: a <= b                             
+#                     Mayor que: a >  b                             
+#                 Mayor o igual: a >= b                             
+                                                                   
 #####################################################################
 
 
@@ -68,3 +67,9 @@ else:
         print(f"A es igual que B")
 
 print(f"Fin del programa =============")
+
+
+
+    # if : if evalua la condicion, y si es verdadera (True), ejecuta el bloque de código
+    # elif: evalua la condicion si las anteriores (if o elif), fueron falsas (false)
+    # else: ejecuta el bloque de codigo si las anteriores fueron falsas (false)

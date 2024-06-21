@@ -1,5 +1,5 @@
 #####################################################################
-# Colecciones - LISTAS                                              #
+# Colecciones - LISTAS                                              
 #####################################################################
 
 # Declaración de variables
@@ -97,3 +97,7 @@ print(f"Contenido de vacia: {vacia}")
 # Eliminar todos los elementos de una lista
 frutas.clear()
 print(f"Contenido de frutas: {frutas}")
+
+    # Son mutables, es decir, se pueden modificar.
+    # Pueden contener elementos de diferentes tipos
+    # programas mas flexibles y eficientes

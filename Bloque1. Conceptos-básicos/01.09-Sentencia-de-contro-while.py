@@ -1,23 +1,23 @@
 #####################################################################
-# Sentencias de Control - While                                     #
+# Sentencias de Control - While                                     
 #####################################################################
-#                                                                   #
-#   Sintaxis: while ([condición]):                                  #
-#                                                                   #
-#   Con while podemos ejecutar un conjunto de sentencias            #
-#   siempre que la condición sea verdadera.                         #
-#                                                                   #
+                                                                   
+#   Sintaxis: while ([condición]):                                  
+                                                                   
+#   Con while podemos ejecutar un conjunto de sentencias            
+#   siempre que la condición sea verdadera.                         
+                                                                   
 #####################################################################
 
 
 # Declaración de variables
 valor = 0
 
-# Uso de While
+# Uso de While (mientras)
 print(f"Inicio del WHILE")
 
 while (valor < 5):
-    valor += 1
+    valor += 1           #valor si es menos de 5, se le suma 1 y se guarda en la variable
     if (valor == 3):
         continue
 
@@ -31,7 +31,7 @@ print(f"Fin del WHILE \n")
 
 # Utilizamos el WHILE para recorrer colecciones
 citricos = ["naranja", "limón", "pomelo", "líma", "mandarina"]
-index = 0
+index = 0     #indice
 
 while(index < len(citricos)):
     print(f"-> {index}# {citricos[index]}")
@@ -51,3 +51,8 @@ while(True):
 
     if(valor > 4):
         break
+
+
+        # while: se ejecuta el codigo de forma repetitiva mientras la 
+        # condicion sea verdadera (true)
+        # Puede crearse un buble infinito, para salir pulsa cntrl + c
