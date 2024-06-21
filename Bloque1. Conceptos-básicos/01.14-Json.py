@@ -34,12 +34,12 @@ print(f"{type(frutas2)}")
 
 
     # se usa con todo tipo de datos: Cadenas de Texto con "", 
-    # Números: Enteros y flotantes, Booleanos: true y false, 
-    # Listas, Colección desordenada de pares clave-valor y null: 
-    # Representa un valor nulo o vacío.
+    # Números: Enteros y flotantes, 
+    # Booleanos: true y false, 
+    # Listas, Colección desordenada de pares clave-valor 
+    # y null: Representa un valor nulo o vacío.
 
     # usos:
-    # Comunicación entre Servidor y Cliente: enviar datos estructurados
-    # desde un servidor web a una aplicación cliente (APIs).
+    # Comunicación entre Servidor y Cliente: enviar datos estructurados desde un servidor web a una aplicación cliente (APIs).
     # Almacenamiento de Configuración: en aplicaciones.
     # Intercambio de Datos: transferencia de datos entre sistemas heterogéneos.

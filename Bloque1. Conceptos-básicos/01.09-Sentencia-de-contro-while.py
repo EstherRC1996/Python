@@ -53,6 +53,5 @@ while(True):
         break
 
 
-        # while: se ejecuta el codigo de forma repetitiva mientras la 
-        # condicion sea verdadera (true)
+        # while: se ejecuta el codigo de forma repetitiva mientras la  condicion sea verdadera (true)
         # Puede crearse un buble infinito, para salir pulsa cntrl + c

@@ -94,5 +94,4 @@ print("==============================================")
 
 
 # Hay multiples bloques except para manejar diferentes tipos de excepciones
-# Tener cuidado con el orden, ya que finally siempre independientemente
-# de si hay o no excepcion
+# Tener cuidado con el orden, ya que finally siempre independientemente de si hay o no excepcion
