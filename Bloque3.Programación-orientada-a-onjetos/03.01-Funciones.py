@@ -1,13 +1,13 @@
 #####################################################################
-# Declaración de Funciones                                          #
+# Declaración de Funciones                                          
 #####################################################################
-#                                                                   #
-#   Sintaxis: def [nombre de la funcion](arg, args-1):              #
-#                                                                   #
-#   Ejemplos:                                                       #
-#       def Saludar() -> None:                                      #
-#       def Suma(a, b) -> int:                                      #
-#                                                                   #
+                                                                   
+#   Sintaxis: def [nombre de la funcion](arg, args-1):              
+                                                                   
+#   Ejemplos:                                                       
+#       def Saludar() -> None:                                      
+#       def Suma(a, b) -> int:                                      
+                                                                   
 #####################################################################
 
 from datetime import datetime
