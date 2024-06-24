@@ -56,3 +56,5 @@ Calcular(lambda a: a * 5)
 print("")
 Calcular(lambda x: ((x * 5) - 10) / x)
 print("")
+
+# Las funciones en Python pueden devolver valores usando la palabra clave return. Esta declaración finaliza la ejecución de la función y devuelve un valor al lugar desde donde se llamó.
