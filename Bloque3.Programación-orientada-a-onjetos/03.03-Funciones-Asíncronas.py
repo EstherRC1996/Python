@@ -1,5 +1,5 @@
 #####################################################################
-# Procesamiento Asíncrono                                           #
+# Procesamiento Asíncrono                                           
 #####################################################################
 
 import asyncio
@@ -38,8 +38,17 @@ print("")
 
 quit()
 
+    # Utiliza la palabra clave async y await para definir funciones asíncronas y esperar la finalización de operaciones sin bloquear el hilo principal.
+    # Hilos (threads): Permite ejecutar múltiples tareas en paralelo utilizando el módulo threading.
+    # Permite la ejecución paralela utilizando múltiples procesos, útil para cargas de trabajo intensivas en CPU.
+    # Las funciones asíncronas permiten que otras partes del programa sigan ejecutándose mientras esperan que se completen operaciones costosas. Esto se logra mediante el uso de bucles de eventos (event loops), como el proporcionado por el módulo asyncio en Python.
+    # Al permitir que varias tareas se ejecuten simultáneamente de manera eficiente, las funciones asíncronas pueden mejorar significativamente el rendimiento de aplicaciones que manejan múltiples solicitudes o tareas de manera concurrente.
+    
+
+
+
 #####################################################################
-# Procesamiento Síncrono                                            #
+# Procesamiento Síncrono                                            
 #####################################################################
 
 def main():
@@ -51,3 +60,9 @@ print("Inicio Sync")
 main()
 print("Fin Sync")
 print("")
+
+
+
+    # Caracteristicas: Son secuenciales.
+    # Pueden bloquear el hilo de ejecucion si durante la ejecucion del codigo, alguna parte requiere de más tiempo
+    # son faciles de entender y depurar.
