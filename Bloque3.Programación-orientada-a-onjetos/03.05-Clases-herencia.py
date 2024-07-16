@@ -1,12 +1,16 @@
 #####################################################################
-# Clases - Herencia                                                 #
+# Clases - Herencia                                                 
 #####################################################################
-#                                                                   #
-#   Sintaxis: class [nombre de la clase]([clase base]):             #
-#                                                                   #
-#   Ejemplos:                                                       #
-#       class Estudiante(Alumno):                                   #
-#                                                                   #
+     # La herencia permite crear una nueva clase basada en una clase existente. 
+     # La nueva clase (subclase) hereda los atributos y métodos de la clase existente 
+     # (superclase).                    
+                                              
+#   Sintaxis: class [nombre de la clase]([clase base]):             
+                                                                  
+                                                                  
+#   Ejemplos:                                                       
+#       class Estudiante(Alumno):                                   
+                                                                   
 #####################################################################
 
 from datetime import datetime
@@ -89,3 +93,11 @@ print("")
 e = Estudiante("Borja", "Cabeza", "1A")
 print(e.getNombreCompleto())
 print(e.Test())
+
+
+
+            # El encapsulamiento es el principio de ocultar los detalles internos 
+            # de una clase y exponer solo lo necesario. En Python, se puede hacer 
+            # uso de guiones bajos para indicar que un atributo o método es privado 
+            # y no debería ser accedido directamente fuera de la clase.
+            # ejemplo self.__curso = curso  # Atributo privado

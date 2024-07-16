@@ -1,12 +1,12 @@
 #####################################################################
-# Clases                                                            #
+# Clases                                                            
 #####################################################################
-#                                                                   #
-#   Sintaxis: class [nombre de la clase]:                           #
-#                                                                   #
-#   Ejemplos:                                                       #
-#       class Alumno:                                               #
-#                                                                   #
+                                                                  
+#   Sintaxis: class [nombre de la clase]:                          
+                                                                  
+#   Ejemplos:                                                       
+#       class Alumno:                                               
+                                                                  
 #####################################################################
 
 from datetime import datetime
@@ -19,13 +19,18 @@ class Alumno:
     Apellido1 = None
     Apellido2 = None
     FechaNacimiento = None
-
+            # Las clases permiten crear objetos que encapsulan tanto datos (atributos) como funciones (métodos) que operan sobre esos datos. 
+    
     # Función constructora del objeto, se ejecuta al crear (instanciar) el objeto.
     # self es una variable que contiene el propio objeto.
     def __init__(self, nombre, apellido1, apellido2 = "") -> None:
         self.Nombre = nombre
         self.Apellido1 = apellido1
         self.Apellido2 = apellido2
+            # el método __init__ es un constructor en Python. Es un método especial que se llama cuando se crea una nueva instancia de la clase. 
+            # Atributos (self.Apellido1 = apellido1): Son variables que pertenecen a una clase y se utilizan para almacenar información sobre los objetos creados a partir de la clase.
+            # Métodos: Son funciones definidas dentro de una clase y se utilizan para realizar operaciones utilizando los atributos de la clase.
+
 
     # Diversas funciones del objeto Alumno
     def getNombreCompleto(self) -> str:

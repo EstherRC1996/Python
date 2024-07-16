@@ -3,18 +3,32 @@
 #####################################################################
 
 from pymongo import MongoClient, collection
+        # from pymongo import MongoClient, collection: MongoClient es la clase 
+        # principal para conectarse a un servidor MongoDB. collection es parte del 
+        # módulo pymongo que se utiliza para trabajar con colecciones en MongoDB.
+
 from bson.objectid import ObjectId
+        # from bson.objectid import ObjectId: ObjectId es un tipo de dato específico 
+        # de MongoDB que se utiliza para identificar de manera única los documentos en
+        # una colección.
+
 from pprint import pprint
+        # from pprint import pprint: pprint es una función que se utiliza para imprimir
+        # estructuras de datos de manera más legible.
+
 import sys, json
+        # import sys, json: sys proporciona acceso a algunas variables y funciones del
+        # sistema, y json permite trabajar con datos en formato JSON.
+
 
 ######################################################
 # CONECTAR CON UN SERVIDOR mongoDB
 ######################################################
 
-#clientDB = MongoClient("127.0.0.1", "27017")
-#clientDB = MongoClient("localhost", "27017")
-#clientDB = MongoClient("mongodb://USER:PASSWORD@<IP>:<PORT>/")
-#clientDB = MongoClient("mongodb://127.0.0.1:27017/")
+#clientDB = MongoClient("127.0.0.1", "27017")           # Crea una conexión a un servidor MongoDB en la máquina local usando la IP 127.0.0.1 y el puerto 27017.
+#clientDB = MongoClient("localhost", "27017")           # Hace lo mismo que la línea anterior, ya que localhost es un alias para 127.0.0.1.
+#clientDB = MongoClient("mongodb://USER:PASSWORD@<IP>:<PORT>/")      # Crea una conexión usando una cadena de conexión que incluye las credenciales de usuario (USER y PASSWORD), la IP del servidor (<IP>) y el puerto (<PORT>).
+#clientDB = MongoClient("mongodb://127.0.0.1:27017/")           # Conexión usando la cadena de conexión estándar para un servidor MongoDB en la máquina local.
 
 
 ######################################################
@@ -26,15 +40,29 @@ import sys, json
 # Se requiere una cadena de conexión
 clientDB = MongoClient("mongodb://localhost:27017/")
 
+"""Crea un objeto MongoClient que representa la conexión al servidor MongoDB 
+        en la máquina local (localhost) en el puerto 27017. Este objeto clientDB será 
+        utilizado para interactuar con las bases de datos de MongoDB"""
+
+
 # Nos posicionamos sobre una base de datos, en el ejemplo sobre la base de datos ADMIN
 db = clientDB.admin
+"""Selecciona la base de datos admin del servidor MongoDB. En MongoDB, la base de datos
+ admin es una base de datos especial que se utiliza para operaciones administrativas y
+de supervisión."""
 
 # Ejecutamos un comando utilizando la función COMMAND
 # El comando serverStatus nos retorna el estado del servidor en formato JSON
 result = db.command("serverStatus")
+"""Ejecuta el comando serverStatus en la base de datos admin. Este comando devuelve 
+una variedad de información sobre el estado del servidor MongoDB, como estadísticas de
+uso, información de la memoria, estado de las conexiones, y más. El resultado se 
+almacena en la variable result."""
 
 # Mostramos el resultado de la ejecución del comando
 print(result)
+"""mprime el resultado del comando serverStatus en la consola. result es un diccionario 
+en formato JSON que contiene toda la información sobre el estado del servidor MongoDB."""
 
 
 ######################################################
@@ -43,32 +71,36 @@ print(result)
 
 # Mostrar el nombre de las bases de datos
 print(clientDB.list_database_names())
+"""Este método devuelve una lista con los nombres de todas las bases de datos 
+disponibles en el servidor MongoDB."""
 
 # El listado de bases de datos es una LISTA de python que podemos recorrer con un FOR
-for db in clientDB.list_database_names():
-    print(f"Nombre: {db}")
-    print(f" -> {clientDB[db].list_collection_names()}\n")
+for db in clientDB.list_database_names():                   # Itera sobre cada nombre de base de datos en la lista.
+    print(f"Nombre: {db}")                                  # Imprime el nombre de cada base de datos.
+    print(f" -> {clientDB[db].list_collection_names()}\n")  # Imprime la lista de colecciones de cada base de datos.
 
 # Seleccionar una base de datos con la que vamos a trabajar
-db = clientDB.northwind             # Sintaxis de Objeto
-db2 = clientDB["northwind"]         # Sintaxis de Colección
+db = clientDB.northwind             # Sintaxis de Objeto.  Selecciona la base de datos northwind utilizando la sintaxis de objeto.
+db2 = clientDB["northwind"]         # Sintaxis de Colección. Selecciona la base de datos northwind utilizando la sintaxis de diccionario. Ambas líneas hacen lo mismo, solo que utilizan diferentes formas de acceder a la base de datos.
 
 # Motrar las colecciones que tiene una base de datos
 # Las colecciones son equivalente a las tablas en las bases de datos relacionales
-print(db.list_collection_names())
-print(db2.list_collection_names())
-print("")
+# db.list_collection_names(): Devuelve una lista con los nombres de todas las colecciones en la base de datos db.
+print(db.list_collection_names())       # Imprime la lista de colecciones de db.
+print(db2.list_collection_names())      # Imprime la lista de colecciones de db2. Ambos prints deberían dar el mismo resultado, ya que db y db2 se refieren a la misma base de datos northwind.
 
 # Seleccionar una colección con la que vamos a trabajar
-collection = clientDB.northwind.customers
-collection = clientDB["northwind"]["customers"]
-collection = db.customers
-collection = db["customers"]
+collection = clientDB.northwind.customers       # Selecciona la colección customers en la base de datos northwind utilizando la sintaxis de objeto.
+collection = clientDB["northwind"]["customers"] # Selecciona la colección customers en la base de datos northwind utilizando la sintaxis de diccionario.
+collection = db.customers                       # Selecciona la colección customers en la base de datos db (que es northwind).
+collection = db["customers"]                    # Selecciona la colección customers en la base de datos db (que es northwind). Estas líneas muestran diferentes formas de acceder a la misma colección.
 
 # Mostramos el número de documentos en la colección
 # Los documentos son equivalentes a los registros en bases de datos relacionales
 print(f"{collection.estimated_document_count()} documentos en {collection.name}")
-
+"""collection.estimated_document_count(): Devuelve una estimación del número de documentos en la colección collection.
+collection.name: Devuelve el nombre de la colección.
+print(f"{collection.estimated_document_count()} documentos en {collection.name}"): Imprime el número estimado de documentos en la colección customers."""
 
 ######################################################
 # TRABAJAR CON LOS DOCUMENTOS DE LAS COLECCIONES

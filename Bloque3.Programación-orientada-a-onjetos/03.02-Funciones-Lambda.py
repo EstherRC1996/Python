@@ -1,13 +1,13 @@
 #####################################################################
-# Declaración de Funciones Lamda                                    #
+# Declaración de Funciones Lamda                                    
 #####################################################################
-#                                                                   #
-#   Sintaxis: lambda arguments : expression                         #
-#                                                                   #
-#   Ejemplos:                                                       #
-#       x = lambda a : a + 10                                       #
-#       print(x(5))                                                 #
-#                                                                   #
+                                                                  
+#   Sintaxis: lambda arguments : expression                         
+                                                                  
+#   Ejemplos:                                                       
+#       x = lambda a : a + 10                                       
+#       print(x(5))                                                 
+                                                                   
 #####################################################################
 
 def Saludo(nombre):

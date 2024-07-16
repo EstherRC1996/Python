@@ -47,3 +47,10 @@ print(f"Suma: {c.
 Suma()}")
 print(f"Resta: {c.Resta()}")
 print(f"Multiplica: {c.Multiplica()}")
+
+
+
+
+        # El polimorfismo permite que diferentes clases implementen el mismo método. 
+        # Es una característica clave de la programación orientada a objetos que 
+        # facilita la interoperabilidad entre diferentes clases.

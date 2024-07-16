@@ -51,3 +51,23 @@ try:
     print(f">>> {next(generador2)} *")
 except StopIteration as e:
     print(e)
+
+
+
+        # El keyword yield en Python se utiliza dentro de una función para convertirla
+        #  en un generador. Los generadores permiten crear iteradores de manera más 
+        # sencilla y eficiente, especialmente cuando se trabaja con grandes volúmenes 
+        # de datos o secuencias infinitas.
+
+        # ¿Qué es un Generador? es una función que devuelve un iterador que produce 
+        # una secuencia de valores uno a la vez, en lugar de devolver todos los 
+        # valores a la vez. Cada vez que se llama a next() en el generador, la función
+        #  se reanuda donde se quedó (justo después de la última declaración yield), 
+        # con todas sus variables locales y el estado intactos.
+
+        # Diferencias entre yield y return
+        # return: Termina la función y devuelve un valor. Una vez que una función ejecuta 
+        # return, se cierra.
+        
+        # yield: Pausa la función y devuelve un valor. La próxima vez que se llame al 
+        # generador, la función continuará ejecutándose desde donde se quedó.

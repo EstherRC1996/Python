@@ -42,3 +42,19 @@ print("")
 print(dir(demo))
 demo._Demo__secreto()
 print(f"Clave: {demo._Demo__Clave}")
+
+
+        # En Python, los miembros privados de una clase se utilizan para restringir 
+        # el acceso directo a los atributos y métodos desde fuera de la clase. 
+        # Aunque Python no tiene verdaderos miembros privados como otros lenguajes 
+        # de programación (por ejemplo, Java o C++), se utiliza una convención de 
+        # nomenclatura para indicar que un miembro es privado.
+
+        # Convención para miembros privados
+        # Para indicar que un atributo o método es privado, se utiliza un guion 
+        # bajo (_) antes del nombre del miembro. Sin embargo, esto es solo una 
+        # convención y no impide realmente el acceso desde fuera de la clase.
+        # 
+        # Para una mayor restricción, se pueden utilizar dos guiones bajos (__). 
+        # Esto activa la name mangling, una técnica que cambia internamente el nombre
+        #  del atributo para dificultar su acceso desde fuera de la clase.
