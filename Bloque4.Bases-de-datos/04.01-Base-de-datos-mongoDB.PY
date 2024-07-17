@@ -111,27 +111,62 @@ print(f"{collection.estimated_document_count()} documentos en {collection.name}"
 result = collection.find_one({"_id": ObjectId("663a105807258656ed9eae3a")})
 pprint(result)
 print("")
+"""Buscar un Documento por _id
+collection.find_one({"_id": ObjectId("663a105807258656ed9eae3a")}):
+    find_one es un método que busca un solo documento en la colección que coincida con el filtro proporcionado.
+    {"_id": ObjectId("663a105807258656ed9eae3a")} es el filtro. Busca el documento con el _id específico.
+    ObjectId convierte el valor de cadena en un tipo de dato ObjectId requerido para buscar por _id.
 
+pprint(result):
+    Imprime el documento encontrado de manera formateada y legible.
+"""
 # Mostrar el primer el documento que coincide con el filtro
 # Filtro: Country = USA
 result = collection.find_one({"Country": "USA"})
 print(type(result))
 pprint(result)
 print("")
+"""
+collection.find_one({"Country": "USA"}):
+    Busca el primer documento en la colección donde el campo Country tiene el valor "USA".
+
+print(type(result)):
+    Imprime el tipo de objeto de result, que debería ser un diccionario si se encuentra un documento, o None si no hay coincidencias.
+
+pprint(result):
+    Imprime el documento encontrado, formateado para una mejor legibilidad.
+"""
 
 # Mostrar el todos los documentos que coincide con el filtro
 # Filtro: Country = USA
 # Retornar un cursor
 cursor = collection.find({"Country": "USA"})
 print(type(cursor))
+"""
+collection.find({"Country": "USA"}):
+    find es un método que devuelve un cursor, el cual se utiliza para iterar sobre todos los documentos que coinciden con el filtro {"Country": "USA"}.
+
+print(type(cursor)):
+    Imprime el tipo de objeto de cursor, que debería ser un cursor de MongoDB."""
+
+
 
 # Mostrar el número de documentos de una búsqueda
 # print(f"Resultado de la búsqueda {cursor.count()} documentos.")    # No disponible desde la versión
 print(f"Resultado de la búsqueda {collection.count_documents({"Country": "USA"})} documentos.")
+"""
+collection.count_documents({"Country": "USA"}):
+    count_documents cuenta el número total de documentos que coinciden con el filtro proporcionado. Este método es preferido sobre cursor.count(), que ha sido descontinuado.
+
+print(f"Resultado de la búsqueda {collection.count_documents({"Country": "USA"})} documentos."):
+    Imprime el número de documentos que coinciden con el filtro {"Country": "USA"}.
+"""
 
 # Cuando ALIVE retorna TRUE significa que tenemos documentos pendientes de leer en el cursor
 print(f"Documentos pendientes de leer: {cursor.alive}")
 print("")
+"""cursor.alive:
+    Verifica si el cursor todavía tiene documentos pendientes de leer. Retorna True si hay documentos restantes, False si no."""
 
 # Utilizamos WHILE para mostrar los documentos del cursor
 # El bloque del WHILE se ejecuta mientras ALIVE retorne TRUE (documentos pendientes de leer)
@@ -141,9 +176,22 @@ while (cursor.alive == True):
     pprint(document)
     print("")
 
+"""while (cursor.alive == True)::
+    Un bucle while que continúa ejecutándose mientras el cursor tenga documentos pendientes (cursor.alive es True).
+
+document = cursor.next():
+    Obtiene el siguiente documento en el cursor.
+
+pprint(document):
+    Imprime el documento actual de manera formateada.
+"""
+
 # Cuando ALIVE retorna FALSE significa que no tenemos documentos pedientes de leer en el cursor
 print(f"Documentos pendientes de leer: {cursor.alive}")
 print("")
+
+"""print(f"Documentos pendientes de leer: {cursor.alive}"):
+    Imprime el estado final del cursor, que debería ser False si no quedan más documentos para leer."""
 
 ######################################################
 # EJEMPLOS DE BÚSQUEDAS Y UTILIZACIÓN DE OPERADORES
@@ -164,10 +212,10 @@ $nin    - not in - no dentro de
 $regex  - cumple con la expresión regular
 """
 
-cursor = collection.find({"Country": "USA"})
-cursor = collection.find({"Country": "USA"}).limit(3)
-cursor = collection.find({"Country": "USA"}).skip(5)
-cursor = collection.find({"Country": "USA"}).skip(5).limit(5)
+cursor = collection.find({"Country": "USA"})                            # Devuelve un cursor que itera sobre todos los documentos en la colección donde el campo Country es "USA".
+cursor = collection.find({"Country": "USA"}).limit(3)                   # Limita los resultados a 3 documentos.
+cursor = collection.find({"Country": "USA"}).skip(5)                    # Omite los primeros 5 documentos en el cursor.
+cursor = collection.find({"Country": "USA"}).skip(5).limit(5)           # Omite los primeros 5 documentos y luego limita los resultados a los siguientes 5 documentos.
 cursor = collection.find({"Country": "USA"}).sort("City")               # Ordenados de A a W
 cursor = collection.find({"Country": "USA"}).sort({"City": 1})          # Ordenados de A a W
 cursor = collection.find({"Country": "USA"}).sort({"City": -1})         # Ordenados de W a A
@@ -177,31 +225,33 @@ cursor = collection.find({"Country": "USA"})                            # Sin op
 cursor = collection.find({"Country": {"$eq": "USA"}})                   # Con operador
 
 # Buscar clientes fuera de USA
-cursor = collection.find({"Country": {"$ne": "USA"}})
+cursor = collection.find({"Country": {"$ne": "USA"}})                   # Busca documentos donde Country no es "USA".
 
 # Buscar clientes de USA y Mexico, ordenados por país y ciudad
 cursor = collection.find({"Country": {"$in": ["USA", "Mexico"]}}).sort([("Country", 1), ("City", 1)])
+                        # {"Country": {"$in": ["USA", "Mexico"]}}: Busca documentos donde el campo Country es "USA" o "Mexico".
+                        # .sort([("Country", 1), ("City", 1)]): Ordena los resultados por Country y luego por City, ambos en orden ascendente.
 
 # Buscar clientes que contenienen DE en la clave CustomerID
-cursor = collection.find({"CustomerID": {"$regex": "DE"}})
+cursor = collection.find({"CustomerID": {"$regex": "DE"}})              #  Busca documentos donde CustomerID contiene la subcadena "DE".
 
 # Buscar clientes que el CustomerID comienza por A y finaliza con 4 carácteres más
-cursor = collection.find({"CustomerID": {"$regex": "1[A-Z]{4}"}})
+cursor = collection.find({"CustomerID": {"$regex": "1[A-Z]{4}"}})       # Busca documentos donde CustomerID empieza con "1" seguido de 4 letras mayúsculas.
 
 # Buscar clientes de la ciudad de San Francisco en USA
 # El operador AND NO se especifica, pero se aplica de forma implicita o por defecto
-cursor = collection.find({"Country": "USA", "City": "San Francisco"})
+cursor = collection.find({"Country": "USA", "City": "San Francisco"})   # Busca documentos donde Country es "USA" y City es "San Francisco". El operador AND se aplica implícitamente.
 
 # Buscar clientes de la ciudad de San Francisco en USA utilizando el operador AND
 # El operador AND SI se especifica y se aplica de forma explicita
-cursor = collection.find({"$and": [{"Country": "USA"}, {"City": "San Francisco"}]})
+cursor = collection.find({"$and": [{"Country": "USA"}, {"City": "San Francisco"}]})   # Busca documentos que coincidan con ambos criterios usando el operador AND explícitamente.
 
 # Buscar clientes de GERMANY o USA utilizar el operador OR
 # El operador OR se especifica y se aplica de forma explicita
-cursor = collection.find({"$or": [{"Country": "Germany"}, {"Country": "USA"}]})
+cursor = collection.find({"$or": [{"Country": "Germany"}, {"Country": "USA"}]})   # Busca documentos donde Country es "Germany" o "USA".
 
 # Buscar los clientes de Mexico y sus pedidos
-cursor = collection.find({"Country": "Mexico"})
+cursor = collection.find({"Country": "Mexico"})                         
 
 while (cursor.alive == True):
     document = cursor.next()
@@ -213,6 +263,14 @@ while (cursor.alive == True):
         print(f">>> {pedido["OrderID"]}# - {pedido["OrderDate"]}")
 
     print("")
+    """
+    cursor = collection.find({"Country": "Mexico"}): Busca documentos con Country igual a "Mexico".
+
+    while (cursor.alive == True):: Itera sobre todos los documentos del cursor.
+
+    pedidos = clientDB.northwind.orders.find({"CustomerID": document["CustomerID"]}): Busca pedidos asociados con el CustomerID del documento actual.
+
+    while (pedidos.alive):: Itera sobre los pedidos encontrados e imprime la información."""
 
 # Buscar los clientes de Mexico y sus pedidos utilizando agregación AGGREGATE
 cursor = db.customers.aggregate([
@@ -225,6 +283,16 @@ cursor = db.customers.aggregate([
         "as": "Pedidos"
     }}
 ])
+
+"""
+db.customers.aggregate([...]): Utiliza la operación de agregación para combinar documentos.
+
+{"$match": {"Country": "Mexico"}}: Filtra documentos con Country igual a "Mexico".
+
+{"$sort": {"City": 1}}: Ordena los documentos por City en orden ascendente.
+
+{"$lookup": {...}}: Realiza una unión con la colección orders para agregar los pedidos asociados a cada cliente bajo el campo "Pedidos"."""
+
 
 while (cursor.alive == True):
     doc = cursor.next()
@@ -250,6 +318,10 @@ while (cursor.alive):
     total = total + (unidades * precio)
 
 print(f"Valor de stock: {total:1.2f}")
+"""
+cursor = clientDB.northwind.products.find({"UnitsInStock": {"$ne": "0"}}): Busca productos con UnitsInStock diferente de "0".
+
+while (cursor.alive):: Itera sobre los productos y calcula el valor total en stock."""
 
 
 # Utilizamos AGGREGATE para calcular el valor del stock
@@ -268,7 +340,15 @@ query = [
 
 cursor = clientDB.northwind.products.aggregate(query)
 pprint(cursor.next())
+"""
+$match: Filtra productos con UnitsInStock diferente de "0".
 
+$addFields: Convierte UnitPrice y UnitsInStock a valores numéricos.
+
+$group: Agrupa los documentos y calcula el total del valor del stock y el número de productos.
+
+pprint(cursor.next()): Imprime el resultado del cálculo
+"""
 
 ######################################################
 # INSERTAR DOCUMENTOS
@@ -304,10 +384,11 @@ cliente.Fax = "900100200"
 
 # Todos los objetos de python tiene una variable o propiedad que es __dict__
 # que retorna un diccionario de todas sus variables
-pprint(cliente.__dict__)
+pprint(cliente.__dict__)            # Imprime el diccionario __dict__ del objeto cliente.
+                                    # __dict__ es un atributo especial de los objetos que contiene todos los atributos del objeto en forma de diccionario.  
 
-id = collection.insert_one(cliente.__dict__).inserted_id
-print(f"ID del nuevo documento: {id}")
+id = collection.insert_one(cliente.__dict__).inserted_id    # Inserta el diccionario __dict__ del objeto cliente en la colección collection de MongoDB. insert_one es un método que inserta un solo documento en la colección y inserted_id devuelve el ID del documento insertado.
+print(f"ID del nuevo documento: {id}")                      # Imprime el ID del documento que acaba de ser insertado en la colección.
 
 # Insertamos partiendo de un diccionario
 
@@ -322,42 +403,50 @@ cliente2 = {"CustomerID": "DEMO2",
             "Country": "España",
             "Phone": "910 101 102",
             "Fax": "910 101 103"}
+                            # Define un nuevo diccionario cliente2 con varios campos que representan los detalles de un cliente.
 
-id = collection.insert_one(cliente2).inserted_id
-print(f"ID del nuevo documento: {id}")
+id = collection.insert_one(cliente2).inserted_id        # Inserta el diccionario cliente2 en la colección collection de MongoDB. De nuevo, insert_one inserta el documento y inserted_id devuelve el ID del documento insertado.
+print(f"ID del nuevo documento: {id}")                  # Imprime el ID del nuevo documento que acaba de ser insertado en la colección.
 
 
 ######################################################
 # ACTUALIZAR DOCUMENTOS
 ######################################################
 
-cliente = collection.find_one({"CustomerID": "DEMO1"})
-pprint(cliente)
+cliente = collection.find_one({"CustomerID": "DEMO1"})  # Busca un único documento en la colección collection de MongoDB que tenga el campo CustomerID igual a "DEMO1". Devuelve el primer documento que coincide con el criterio de búsqueda.
+pprint(cliente)                                         # Imprime el documento encontrado en un formato legible utilizando pprint.
 
 # Actualizamos uno o varios documentos de una colección
-query = {"CustomerID": "DEMO1"}
+query = {"CustomerID": "DEMO1"}                         # Define un diccionario query que será usado como criterio de búsqueda para actualizar los documentos que tengan CustomerID igual a "DEMO1".
 
 # Los nuevo valores para el documento o documentos que vamos actualizar
 newValues = {"$set": {
     "ContactName": "Ana Sanz",
     "PostalCode": "28013"
 }}
+                    # Define un diccionario query que será usado como criterio de 
+                    # búsqueda para actualizar los documentos que tengan CustomerID 
+                    # igual a "DEMO1".
 
 # Actualizar el primer documento que retorna la consulta
-result = collection.update_one(query, newValues)
+result = collection.update_one(query, newValues)         # Actualiza el primer documento que coincide con el criterio query en la colección collection con los valores especificados en newValues. Devuelve un objeto UpdateResult que contiene información sobre la operación.
 
-print(f"{result.matched_count} documentos encontrados")
-print(f"{result.modified_count} documentos modificados")
-print(result)
+print(f"{result.matched_count} documentos encontrados")  # Imprime el número de documentos que coincidieron con el criterio de búsqueda (matched_count).
+print(f"{result.modified_count} documentos modificados") # Imprime el número de documentos que fueron efectivamente modificados (modified_count).
+print(result)                                            # Imprime el objeto UpdateResult para ver más detalles sobre la operación
 
 # Actualizar el todos los documentos que retorna la consulta
-result = collection.update_many(query, newValues)
+result = collection.update_many(query, newValues)        # Actualiza todos los documentos que coinciden con el criterio query en la colección collection con los valores especificados en newValues. Devuelve un objeto UpdateResult que contiene información sobre la operación.
 
 print(f"{result.matched_count} documentos encontrados")
 print(f"{result.modified_count} documentos modificados")
 print(result)
 
 pprint(collection.find_one(query))
+                    # Busca e imprime el primer documento en la colección collection 
+                    # que coincida con el criterio query (es decir, el documento con 
+                    # CustomerID igual a "DEMO1"), después de las actualizaciones. 
+                    # Utiliza pprint para imprimir el documento en un formato legible.
 
 
 ######################################################
@@ -365,11 +454,11 @@ pprint(collection.find_one(query))
 ######################################################
 
 # Eliminar el primer documento coincidente con el filtro de búsqueda
-result = collection.delete_one({"CustomerID": "DEMO2"})
-print(result)
-print(f"{result.deleted_count} documentos eliminados.")
+result = collection.delete_one({"CustomerID": "DEMO2"})     # Busca y elimina el primer documento en la colección collection que tenga el campo CustomerID igual a "DEMO2". Devuelve un objeto DeleteResult que contiene información sobre la operación.
+print(result)                                               # Imprime el objeto DeleteResult, que puede proporcionar detalles adicionales sobre la operación de eliminación.
+print(f"{result.deleted_count} documentos eliminados.")     # Imprime el número de documentos que fueron eliminados. deleted_count es un atributo del objeto DeleteResult que indica cuántos documentos fueron eliminados.
 
 # Eliminar todos los documentos coincidentes con el filtro de búsqueda
-result = collection.delete_many({"CustomerID": "DEMO2"})
-print(result)
-print(f"{result.deleted_count} documentos eliminados.")
+result = collection.delete_many({"CustomerID": "DEMO2"})    # Busca y elimina todos los documentos en la colección collection que tengan el campo CustomerID igual a "DEMO2". Devuelve un objeto DeleteResult que contiene información sobre la operación.
+print(result)                                               # Imprime el objeto DeleteResult, proporcionando detalles adicionales sobre la operación de eliminación.
+print(f"{result.deleted_count} documentos eliminados.")     # Imprime el número de documentos que fueron eliminados. deleted_count es un atributo del objeto DeleteResult que indica cuántos documentos fueron eliminados.
