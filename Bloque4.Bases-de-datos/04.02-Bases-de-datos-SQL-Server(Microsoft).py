@@ -1,4 +1,5 @@
-import pymssql
+import pymssql  # mporta el módulo pymssql, que se utiliza para conectar y interactuar con bases de datos Microsoft SQL Server desde Python.
+
 
 # Establecer la conexión con la base de datos
 connection = pymssql.connect(
@@ -9,27 +10,46 @@ connection = pymssql.connect(
     database="Northwind"
 )
 
+"""
+Establece una conexión con la base de datos SQL Server. Los parámetros incluyen:
+-server: La dirección del servidor de la base de datos.
+-port: El puerto en el que el servidor de base de datos está escuchando (por defecto es 1433 para SQL Server).
+-user: El nombre de usuario para autenticarse en la base de datos.
+-password: La contraseña del usuario.
+-database: El nombre de la base de datos a la que deseas conectarte.
+        """
+
 # Creamos un cursor para ejecutar comando en la base de datos
 # Creamos un cursor que retorna Tuplas
 cursor = connection.cursor()
+            # Crea un cursor. Un cursor es un objeto que se utiliza para ejecutar consultas y obtener resultados de la base de datos.
 
 # Creamos un cursor que retorna Diccionarios
 cursor = connection.cursor(as_dict=True)
+"""
+cursor: Esta es una variable que almacenará el cursor creado. Un cursor es un objeto que permite interactuar con la base de datos a través de la conexión establecida, permitiendo ejecutar consultas y recuperar resultados.
+
+connection: Esta es la variable que contiene la conexión a la base de datos establecida previamente con pymssql.connect(...).
+
+.cursor(...): Este es un método de la conexión que crea y devuelve un cursor.
+
+as_dict=True: Este es un parámetro que se pasa al método cursor. Establece que los resultados de las consultas ejecutadas con este cursor se devolverán como diccionarios en lugar de tuplas.
+"""
 
 ######################################################
 # SELECT, leer registros de la base de datos
 ######################################################
 
 # Ejemplos del comando SELECT, para leer registros de la base de datos
-cursor.execute("SELECT * FROM dbo.Customers")
+cursor.execute("SELECT * FROM dbo.Customers") 
+        # Ejecuta una consulta SQL para seleccionar todos los registros de la tabla Customers en el esquema dbo.
 
 # Mostar el contenido del cursor utilizando un WHILE
-row = cursor.fetchone()
-while (row):
-    print(f"      ID: {row["CustomerID"]}")
-    print(f" Empresa: {row["CompanyName"]
-                       } - {row["City"]} ({row["Country"]})\n")
-    row = cursor.fetchone()
+row = cursor.fetchone()     # Recupera el primer registro del conjunto de resultados.
+while (row):                # Bucle que continúa mientras row no sea None.
+    print(f"      ID: {row["CustomerID"]}")     # Imprime el valor del campo CustomerID del registro actual.
+    print(f" Empresa: {row["CompanyName"]} - {row["City"]} ({row["Country"]})\n") # Imprime el valor de los campos CompanyName, City y Country del registro actual. 
+    row = cursor.fetchone() # Recupera el siguiente registro del conjunto de resultados.
 
 # El siguiente ejemplo comentado muestra como tratar los registros cuando se
 # entregan como Tuplas en lugar de Diccionarios
@@ -43,10 +63,9 @@ while (row):
 
 # Mostar el contenido del cursor utilizando un FOR
 cursor.execute("SELECT * FROM dbo.Customers")
-for row in cursor.fetchall():
-    print(f">      ID: {row["CustomerID"]}")
-    print(f"> Empresa: {row["CompanyName"]
-                        } - {row["City"]} ({row["Country"]})\n")
+for row in cursor.fetchall():                       # Recupera todos los registros del conjunto de resultados y los itera.
+    print(f">      ID: {row["CustomerID"]}")        # Imprime el valor del campo CustomerID del registro actual.
+    print(f"> Empresa: {row["CompanyName"]} - {row["City"]} ({row["Country"]})\n") # Imprime el valor de los campos CompanyName, City y Country del registro actual.
 
 # El siguiente ejemplo comentado muestra como tratar los registros cuando se
 # entregan como Tuplas en lugar de Diccionarios
@@ -57,16 +76,32 @@ for row in cursor.fetchall():
 """
 
 # Ejemplos del comando SELECT, para leer registros de la base de datos
-cursor.execute("SELECT * FROM dbo.Customers")
+cursor.execute("SELECT * FROM dbo.Customers")                               
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA'")
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = %d", "USA")
+"""
+cursor.execute("SELECT * FROM dbo.Customers"): Selecciona todos los registros de la tabla Customers.
+cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA'"): Selecciona los registros donde el Country es 'USA'.
+cursor.execute("SELECT * FROM dbo.Customers WHERE Country = %d", "USA"): Este comando está incorrecto, debería usar %s para parámetros de cadena.
+"""
 
 pais = input("Nombre del pais: ")
 cursor.execute(f"SELECT * FROM dbo.Customers WHERE Country = '{pais}'")
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = %d", pais)
+"""
+pais = input("Nombre del pais: "): Solicita al usuario que ingrese el nombre de un país.
+cursor.execute(f"SELECT * FROM dbo.Customers WHERE Country = '{pais}'"): Ejecuta una consulta con el país ingresado por el usuario (vulnerable a inyección SQL).
+cursor.execute("SELECT * FROM dbo.Customers WHERE Country = %d", pais): Incorrecto, debería usar %s.
+"""
+
 
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' AND City = 'San Francisco'")
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' OR Country = 'Germany'")
+"""
+cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' AND City = 'San Francisco'"): Selecciona registros donde el Country es 'USA' y la City es 'San Francisco'.
+cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' OR Country = 'Germany'"): Selecciona registros donde el Country es 'USA' o 'Germany'.
+"""
+
 
 cursor.execute("SELECT CustomerID, CompanyName, City, Country FROM dbo.Customers WHERE Country = 'USA'")
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' OR Country = 'Germany' ORDER BY Country")
@@ -74,9 +109,9 @@ cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' OR Country = '
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' OR Country = 'Germany' ORDER BY Country DESC")
 cursor.execute("SELECT * FROM dbo.Customers WHERE Country = 'USA' OR Country = 'Germany' ORDER BY Country, City")
 
-for row in cursor.fetchall():
-    print(f"     ID: {row["CustomerID"]}")
-    print(f"Empresa: {row["CompanyName"]} - {row["City"]} ({row["Country"]})")
+for row in cursor.fetchall():               # Recupera todos los registros y los itera.
+    print(f"     ID: {row["CustomerID"]}")  # Imprime el valor del campo CustomerID.
+    print(f"Empresa: {row["CompanyName"]} - {row["City"]} ({row["Country"]})")  # mprime el valor de los campos CompanyName, City y Country.
 
 
 ######################################################
