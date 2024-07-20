@@ -1,5 +1,5 @@
 #####################################################################
-# Consultar timepo de llegada del autobus                           #
+# Consultar timepo de llegada del autobus                           
 #####################################################################
 
 import requests, json
@@ -23,14 +23,29 @@ def InfoBus(item):
     
     return data
 
+"""
+Definición de la Función InfoBus: Procesa la información de llegada de un autobús.
+Inicialización del Diccionario data: Almacena los datos procesados.
+Extracción de la Línea y Distancia del Autobús:
+    data["linea"] obtiene la línea del autobús.
+    data["distancia"] obtiene la distancia del autobús a la parada.
+Calculo del Tiempo de Llegada:
+    Si estimateArrive (tiempo estimado de llegada en segundos) es menor a 60 segundos, indica que el autobús está en la parada.
+    Si no, se convierte a minutos y se evalúa si el tiempo es mayor o igual a 20 minutos, o menos, para proporcionar el mensaje adecuado.
+Construcción del Mensaje: Combina los datos en un mensaje descriptivo.
+Retorno de Datos: La función retorna el diccionario data con los datos procesados.
+
+"""
+
 # Colección de URLs utilizadas
 urls = {
     "base": "https://openapi.emtmadrid.es/v2/",
     "login": "mobilitylabs/user/login/",
     "timeArrivalBus": "transport/busemtmad/stops/<stopId>/arrives/"
 }
+            # Define un diccionario urls con las partes de las URLs que se usarán 
 
-# Variable para alamacenar el token
+# Variable para alamacenar el token (una variable token inicializada en None para almacenar el token de acceso.)
 token = None
 
 # Preguntamos al usuario que parada quiere consultar y lo almacenamos en la variable parada
@@ -60,7 +75,12 @@ try:
     else:
         print(f"Error ({response.status_code}): {response.reason}")
         quit()
-
+    """
+    Construcción de la URL del Endpoint: Concatenando las partes del diccionario urls.
+    Definición de las Cabeceras: Se definen las cabeceras necesarias para la autenticación.
+    Solicitud de Token: Se realiza una solicitud GET al endpoint de login con las cabeceras definidas.
+    Validación de la Respuesta: Si el estado de respuesta es 200, se extrae y almacena el token de acceso. Si no, se muestra un mensaje de error y se termina la ejecución.
+    """
 
     # Si tenemos token realizamos una segunda llamda al API para obtener la información
     # de los autobuses proximos a la parada de autobus
@@ -106,5 +126,17 @@ try:
     else:
         print(f"Error ({response.status_code}): {response.reason}")
 
+    """
+Construcción de la URL del Endpoint: Concatenando las partes del diccionario urls y reemplazando <stopId> con el número de parada.
+Definición de las Cabeceras: Incluyendo el token de acceso.
+Definición de los Datos del Body: Especificando parámetros necesarios para la solicitud.
+Solicitud de Información de Autobuses: Se realiza una solicitud POST al endpoint con las cabeceras y datos definidos.
+Procesamiento de la Respuesta: Si el estado de respuesta es 200, se procesa la información de llegada de los autobuses usando la función InfoBus y se imprime el mensaje. Si no, se muestra un mensaje de error.
+    """
+
+
 except Exception as e:
     print(f"Error: {e}")
+"""
+Captura cualquier excepción que ocurra durante la ejecución del bloque try y muestra un mensaje de error.
+"""

@@ -120,17 +120,18 @@ for row in cursor.fetchall():               # Recupera todos los registros y los
 
 # Ejemplo que comienza con una consulta y realiza 830 subconsultas dentro del for
 # NO ES UN JOIN, son subconsultas que deben evitarse por rendimiento
-cursor.execute("SELECT * FROM dbo.Orders")
+cursor.execute("SELECT * FROM dbo.Orders")  # Ejecuta una consulta SQL que selecciona todos los registros (*) de la tabla Orders en el esquema dbo.
 
-for row in cursor.fetchall():
-    print(f" -> {row["OrderID"]}# - {row["CustomerID"]} {row["OrderDate"]}")
+for row in cursor.fetchall():               # Utiliza un bucle for para iterar sobre todos los registros recuperados por la consulta SQL anterior. cursor.fetchall() devuelve todos los registros en una lista de diccionarios (si el cursor está configurado con as_dict=True).
+    print(f" -> {row["OrderID"]}# - {row["CustomerID"]} {row["OrderDate"]}")    # Imprime el valor de las columnas OrderID, CustomerID y OrderDate del registro actual en el bucle, formateado como una cadena.
 
-    cursor2 = connection.cursor(as_dict=True)
-    cursor2.execute("SELECT * FROM dbo.Employees WHERE EmployeeID = %d", row["EmployeeID"])
-    cursor2.execute(f"SELECT * FROM dbo.Employees WHERE EmployeeID = '{row["EmployeeID"]}'")
-    employee = cursor2.fetchone()
+    cursor2 = connection.cursor(as_dict=True)    # Crea un nuevo cursor cursor2 que también devuelve los resultados como diccionarios (as_dict=True).
+    cursor2.execute("SELECT * FROM dbo.Employees WHERE EmployeeID = %d", row["EmployeeID"])     # Ejecuta una consulta SQL con cursor2 para seleccionar todos los registros de la tabla Employees donde el valor de la columna EmployeeID coincide con el valor de EmployeeID del registro actual en el bucle row. Nota: Este método de parametrización es incorrecto para cadenas (debería ser para enteros).
+    cursor2.execute(f"SELECT * FROM dbo.Employees WHERE EmployeeID = '{row["EmployeeID"]}'")    # Ejecuta una consulta SQL con cursor2 para seleccionar todos los registros de la tabla Employees donde el valor de la columna EmployeeID coincide con el valor de EmployeeID del registro actual en el bucle row. Nota: Este método es más seguro para evitar inyección SQL si se usa correctamente.
+    employee = cursor2.fetchone()                # Recupera el primer registro del resultado de la consulta SQL ejecutada con cursor2 y lo almacena en la variable employee.
 
     print(f"    Pedido gestionado por el empleado {row["EmployeeID"]}: {employee["FirstName"]} {employee["LastName"]}")
+                                                 # Imprime un mensaje que incluye el valor de EmployeeID del registro actual en el bucle row, y los valores de FirstName y LastName del registro employee recuperado de la tabla Employees.
 
 
 # Ejemplo que ser realiza con una consulta
@@ -140,6 +141,19 @@ query = """
     FROM dbo.Orders AS o, dbo.Employees AS e 
     WHERE o.EmployeeID = e.EmployeeID"
 """
+    #  Aquí se está abriendo una cadena multilínea para definir la consulta SQL. Las comillas triples permiten que la cadena se extienda en varias líneas para mayor claridad y legibilidad.
+    # La cláusula SELECT especifica las columnas que se desean recuperar de las tablas en la consulta. En este caso, se están seleccionando las siguientes columnas:
+        # .OrderID: El ID de la orden desde la tabla Orders.
+        # o.CustomerID: El ID del cliente desde la tabla Orders.
+        # o.OrderDate: La fecha de la orden desde la tabla Orders.
+        # o.EmployeeID: El ID del empleado desde la tabla Orders.
+        # e.FirstName: El nombre del empleado desde la tabla Employees.
+        # e.LastName: El apellido del empleado desde la tabla Employees.
+    # La cláusula FROM especifica la tabla principal que se está consultando. En este caso, dbo.Orders es la tabla de órdenes, y o es un alias para esta tabla. El alias o se usa para referirse a la tabla Orders de una manera más corta en la consulta.
+    # La cláusula JOIN se utiliza para combinar filas de dos o más tablas, basándose en una condición relacionada. En este caso:
+        # JOIN dbo.Employees AS e: Especifica que se debe unir la tabla Employees (con alias e) a la tabla Orders.
+        # ON o.EmployeeID = e.EmployeeID: Especifica la condición de unión. Las filas de Orders se combinarán con las filas de Employees donde los valores de EmployeeID coincidan.
+
 query2 = """
     SELECT o.OrderID, o.CustomerID, o.OrderDate, o.EmployeeID, e.FirstName, e.LastName
     FROM dbo.Orders AS o
@@ -148,10 +162,10 @@ query2 = """
 """
 cursor.execute(query)
 
+    # Iterar sobre los resultados y mostrar la información
 for row in cursor.fetchall():
     print(f" -> {row["OrderID"]}# - {row["CustomerID"]} {row["OrderDate"]}")
-    print(f"    Pedido gestionado por el empleado {
-          row["EmployeeID"]}: {row["FirstName"]} {row["LastName"]}")
+    print(f"    Pedido gestionado por el empleado {row["EmployeeID"]}: {row["FirstName"]} {row["LastName"]}")
 
 
 ######################################################
@@ -237,10 +251,20 @@ cliente2 = {"CustomerID": "DEMO2",
             "Fax": "910 101 103"}
 
 # INSERT comando de inserción
-command = """
+command = """      
     INSERT INTO dbo.Customers(CustomerID, CompanyName, ContactTitle, City, Country)
     VALUES('BCR01', 'Company SL', 'Borja Cabeza', 'Madrid', 'España')
 """
+                # command: Abre una cadena multilínea para definir el comando SQL. Las comillas triples permiten que la cadena se extienda en varias líneas para mayor claridad y legibilidad.
+                    # dbo.Customers: Es el nombre de la tabla en la que se insertarán los datos.
+                    # CustomerID, CompanyName, ContactTitle, City, Country: Son los nombres de las columnas en la tabla Customers donde se insertarán los valores correspondientes.
+                # La cláusula VALUES especifica los valores que se insertarán en las columnas correspondientes de la tabla Customers. En este caso:
+                    #'BCR01': Es el valor para la columna CustomerID.
+                    # 'Company SL': Es el valor para la columna CompanyName.
+                    # 'Borja Cabeza': Es el valor para la columna ContactTitle.
+                    # 'Madrid': Es el valor para la columna City.
+                    # 'España': Es el valor para la columna Country.
+
 
 # Insertamos nuevos registros ejecutado el comando INSERT
 #cursor.execute(command)
@@ -272,6 +296,7 @@ command2 = """
         City, 
         Country) VALUES(%s, %s, %s, %s, %s, %s)
 """
+                # VALUES(%s, %s, %s, %s, %s, %s)-->POSICION
 
 # Al ejecutar el comando con comides, pasamos como segundo parámetros los valores en una lista
 cursor.execute(command2, ["BCR02", "Company Demo, SL", "Borja", "CEO", "Valencia", "España"])
@@ -386,15 +411,15 @@ command = """
 # Ejecutamos el comando y confirmamos la transación mediante connection.commit()
 # Si se produce un error retrocedemos la transación mediante connection.rollback() y la operación de borrado se anual
 # Siempre mostramos el número de registros eliminados
-try:
-    cursor.execute(command)
-    connection.commit()
-except Exception as e:
-    connection.rollback()
-    print(f"Error: {e}")
-finally:
-    print(f"{cursor.rowcount} registros eliminados.")
-    connection.close()
+try:                        # Inicia un bloque try que intenta ejecutar las instrucciones dentro de él. Si ocurre una excepción, el flujo de control pasará al bloque except.
+    cursor.execute(command) # Usa el cursor para ejecutar el comando SQL almacenado en la variable command. Este comando puede ser cualquier instrucción SQL, como INSERT, UPDATE, DELETE, etc.
+    connection.commit()     # Confirma los cambios realizados por el comando SQL en la base de datos. Esto asegura que las modificaciones se guarden permanentemente.
+except Exception as e:      # Este bloque captura cualquier excepción que ocurra durante la ejecución del código en el bloque try. La excepción capturada se almacena en la variable e.
+    connection.rollback()   #  Si ocurre una excepción, se llama a rollback() para revertir cualquier cambio realizado en la base de datos durante la transacción actual. Esto asegura que la base de datos vuelva a su estado anterior antes de ejecutar el comando.
+    print(f"Error: {e}")    # Imprime el mensaje de error capturado en la excepción. Esto ayuda a diagnosticar qué salió mal durante la ejecución del comando.
+finally:                    # El bloque finally se ejecuta siempre, independientemente de si ocurrió una excepción o no. Esto asegura que ciertas acciones se realicen sin importar el resultado de los bloques try y except.
+    print(f"{cursor.rowcount} registros eliminados.")   # Imprime el número de registros afectados por el comando ejecutado. cursor.rowcount devuelve el número de filas afectadas por la última operación ejecutada usando el cursor. Aunque el mensaje dice "registros eliminados", rowcount se aplica a cualquier operación que modifique filas (INSERT, UPDATE, DELETE).
+    connection.close()      # Cierra la conexión a la base de datos para liberar recursos. Esto es importante para evitar conexiones abiertas que puedan agotar los recursos del sistema o la base de datos.
 
 # Utilizamos DELETE para eliminar registros en la base de datos, el comando contiene parámetros
 command = """

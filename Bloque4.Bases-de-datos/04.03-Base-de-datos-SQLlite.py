@@ -10,6 +10,11 @@ connection = pymssql.connect(
 )
 
 # Creamos un cursor para ejecutar comando en la base de datos
+"""
+Un cursor es un objeto proporcionado por una biblioteca de conexión a bases de datos 
+(como pymssql para SQL Server o sqlite3 para SQLite) que permite interactuar con la 
+base de datos. Sirve para ejecutar comandos SQL y manejar los resultados de consultas.
+"""
 # Creamos un cursor que retorna Tuplas
 cursor = connection.cursor()
 
@@ -115,8 +120,7 @@ cursor.execute(query)
 
 for row in cursor.fetchall():
     print(f" -> {row["OrderID"]}# - {row["CustomerID"]} {row["OrderDate"]}")
-    print(f"    Pedido gestionado por el empleado {
-          row["EmployeeID"]}: {row["FirstName"]} {row["LastName"]}")
+    print(f"    Pedido gestionado por el empleado {row["EmployeeID"]}: {row["FirstName"]} {row["LastName"]}")
 
 
 ######################################################
